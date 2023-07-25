@@ -18,3 +18,4 @@ global_job_config:
         - python manage.py test tasks.tests.test_models
         - python manage.py test tasks.tests.test_views
         - python manage.py check --deploy --fail-level ERROR
+        - echo "Unit Test Completed"
