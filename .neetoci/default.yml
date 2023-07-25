@@ -3,8 +3,8 @@ name: neetoCi
 global_job_config:
   setup:
     - checkout
-    - sem-version python 3.8
-    - sem-service start mysql
+    - neetoci-version python 3.8
+    - neetoci-service start mysql
     - sudo apt-get update && sudo apt-get install -y python3-dev && sudo apt-get install default-libmysqlclient-dev
     - cache restore
     - pip download --cache-dir .pip_cache -r requirements.txt
