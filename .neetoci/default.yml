@@ -4,7 +4,7 @@ global_job_config:
   setup:
     - checkout
     - neetoci-version python 3.8
-    - neetoci-service start mysql 8.0
+    - neetoci-service start mysql
     - sudo apt-get update && sudo apt-get install -y python3-dev default-libmysqlclient-dev
     - cache restore
     - pip download --cache-dir .pip_cache -r requirements.txt
