@@ -1,15 +1,20 @@
 version: v1.0
 name: neetoCi
+envs:
+  - key: DB_NAME
+    value: 'pydjango'
 global_job_config:
   setup:
-    - checkout
     - neetoci-version python 3.8
     - neetoci-service start mysql
-    - sudo apt-get update && sudo apt-get install -y python3-dev default-libmysqlclient-dev
+    - sudo apt-get update && sudo apt-get install -y -qq mysql-client python3-dev default-libmysqlclient-dev
+    - mysql --host=0.0.0.0 -uroot -e "create database $DB_NAME"
+    - checkout
     - cache restore
     - pip download --cache-dir .pip_cache -r requirements.txt
     - cache store
     - pip install -r requirements.txt --cache-dir .pip_cache
+    - nohup python manage.py runserver 127.0.0.1:8732 &
   jobs:
     - name: Unit Test
       commands:
@@ -17,5 +22,5 @@ global_job_config:
           xargs pylint -E --load-plugins=pylint_django
         - python manage.py test tasks.tests.test_models
         - python manage.py test tasks.tests.test_views
+        - python manage.py test tasks.tests.test_browser
         - python manage.py check --deploy --fail-level ERROR
-        - echo "Unit Test Completed"
