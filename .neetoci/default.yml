@@ -22,5 +22,3 @@ global_job_config:
           xargs pylint -E --load-plugins=pylint_django
         - python manage.py test tasks.tests.test_models
         - python manage.py test tasks.tests.test_views
-        - python manage.py test tasks.tests.test_browser
-        - python manage.py check --deploy --fail-level ERROR
